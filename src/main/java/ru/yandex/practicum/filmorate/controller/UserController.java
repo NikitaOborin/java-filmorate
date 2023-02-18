@@ -1,60 +1,43 @@
 package ru.yandex.practicum.filmorate.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import ru.yandex.practicum.filmorate.exeptions.NotFoundException;
 import ru.yandex.practicum.filmorate.exeptions.ValidationException;
 import ru.yandex.practicum.filmorate.model.User;
+import ru.yandex.practicum.filmorate.repository.UserRepository;
+import ru.yandex.practicum.filmorate.validator.UserValidator;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
-@RequestMapping(value = "api/v1/users")
+@RequestMapping(value = "users")
+@Slf4j
 public class UserController {
-    private Map<Integer, User> users = new HashMap<>();
-    int generatorId;
+    UserRepository userRepository = new UserRepository();
+    UserValidator userValidator = new UserValidator();
 
     @PostMapping
     public User createUser(@RequestBody User user) {
-        if (!isValid(user)) {
-            throw new ValidationException("Данные пользователя не соответствуют критериям");
+        if (!userValidator.validateUser(user)) {
+            throw new ValidationException("Ошибка валидации пользователя");
         }
-
-        user.setId(++generatorId);
-        users.put(user.getId(), user);
+        userRepository.addUserInRepository(user);
+        log.debug("Пользователь {} успешно добавлен", user.getName());
         return user;
     }
 
     @PutMapping
     public User updateUser(@RequestBody User user) {
-        if (!isValid(user)) {
-            throw new ValidationException("Данные пользователя не соответствуют критериям");
+        if (!userValidator.validateUser(user)) {
+            throw new ValidationException("Ошибка валидации пользователя");
         }
-
-        if (users.containsKey(user.getId())) {
-            users.put(user.getId(), user);
-            return user;
-        } else {
-            throw new NotFoundException(String.format("Пользователь %s не найден", user.getName()));
-        }
+        userRepository.updateUserInRepository(user);
+        log.debug("Пользователь {} успешно обновлен", user.getName());
+        return user;
     }
 
     @GetMapping
     public List<User> getUsers() {
-        return new ArrayList<>(users.values());
-    }
-
-    private boolean isValid(User user) {
-        if (user.getEmail().isBlank() && user.getEmail().contains("@")) {
-            return false;
-        } else if (user.getLogin().isBlank()) {
-            return false;
-        } else if (user.getName().isBlank()) {
-            user.setName(user.getLogin());
-            return true;
-        } else return !user.getBirthday().isAfter(LocalDate.now());
+        return userRepository.getUsersFromRepository();
     }
 }
