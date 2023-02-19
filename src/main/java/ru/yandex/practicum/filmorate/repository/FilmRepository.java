@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class FilmRepository {
     private final Map<Integer, Film> films = new HashMap<>();
-    int generatorId;
+    private int generatorId;
 
     public void addFilmInRepository(Film film) {
         film.setId(++generatorId);

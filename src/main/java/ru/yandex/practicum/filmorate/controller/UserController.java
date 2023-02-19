@@ -18,9 +18,7 @@ public class UserController {
 
     @PostMapping
     public User createUser(@RequestBody User user) {
-        if (!userValidator.validateUser(user)) {
-            throw new ValidationException("Ошибка валидации пользователя");
-        }
+        userValidator.validateUser(user);
         userRepository.addUserInRepository(user);
         log.debug("Пользователь {} успешно добавлен", user.getName());
         return user;
@@ -28,9 +26,7 @@ public class UserController {
 
     @PutMapping
     public User updateUser(@RequestBody User user) {
-        if (!userValidator.validateUser(user)) {
-            throw new ValidationException("Ошибка валидации пользователя");
-        }
+        userValidator.validateUser(user);
         userRepository.updateUserInRepository(user);
         log.debug("Пользователь {} успешно обновлен", user.getName());
         return user;

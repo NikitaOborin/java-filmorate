@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class UserRepository {
     private final Map<Integer, User> users = new HashMap<>();
-    int generatorId;
+    private int generatorId;
 
     public void addUserInRepository(User user) {
         user.setId(++generatorId);

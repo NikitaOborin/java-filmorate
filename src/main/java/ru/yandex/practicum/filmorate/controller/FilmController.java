@@ -18,9 +18,7 @@ public class FilmController {
 
     @PostMapping
     public Film addFilm(@RequestBody Film film) {
-        if (!filmValidator.validateFilm(film)) {
-            throw new ValidationException("Ошибка валидации фильма");
-        }
+        filmValidator.validateFilm(film);
         filmRepository.addFilmInRepository(film);
         log.debug("Фильм {} успешно добавлен", film.getName());
         return film;
@@ -28,9 +26,7 @@ public class FilmController {
 
     @PutMapping
     public Film updateFilm(@RequestBody Film film) {
-        if (!filmValidator.validateFilm(film)) {
-            throw new ValidationException("Ошибка валидации фильма");
-        }
+        filmValidator.validateFilm(film);
         filmRepository.updateFilmInRepository(film);
         log.debug("Фильм {} успешно обновлен", film.getName());
         return film;
