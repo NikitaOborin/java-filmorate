@@ -1,5 +1,6 @@
-package ru.yandex.practicum.filmorate.repository;
+package ru.yandex.practicum.filmorate.storage.user;
 
+import org.springframework.stereotype.Component;
 import ru.yandex.practicum.filmorate.exeptions.NotFoundException;
 import ru.yandex.practicum.filmorate.model.User;
 
@@ -7,16 +8,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UserRepository {
+@Component
+public class InMemoryUserStorage implements UserStorage {
     private final Map<Integer, User> users = new HashMap<>();
     private int generatorId;
 
-    public void addUserInRepository(User user) {
+    @Override
+    public void create(User user) {
         user.setId(++generatorId);
         users.put(user.getId(), user);
     }
 
-    public void updateUserInRepository(User user) {
+    @Override
+    public void update(User user) {
         if (users.containsKey(user.getId())) {
             users.put(user.getId(), user);
         } else {
@@ -24,7 +28,8 @@ public class UserRepository {
         }
     }
 
-    public ArrayList<User> getUsersFromRepository() {
+    @Override
+    public ArrayList<User> getAll() {
         return new ArrayList<>(users.values());
     }
 }
