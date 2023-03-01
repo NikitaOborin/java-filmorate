@@ -9,4 +9,6 @@ public interface UserStorage {
     void create(User user);
     void update(User user);
     ArrayList<User> getAll();
+    User getById(int id);
+    void deleteById(int id);
 }

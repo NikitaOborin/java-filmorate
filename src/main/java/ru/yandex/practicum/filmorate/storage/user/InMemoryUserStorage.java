@@ -32,4 +32,20 @@ public class InMemoryUserStorage implements UserStorage {
     public ArrayList<User> getAll() {
         return new ArrayList<>(users.values());
     }
+
+    @Override
+    public User getById(int id) {
+        if (!users.containsKey(id)) {
+            throw new NotFoundException(String.format("Пользователь c id=%s не найден", id));
+        }
+        return users.get(id);
+    }
+
+    @Override
+    public void deleteById(int id) {
+        if (!users.containsKey(id)) {
+            throw new NotFoundException(String.format("Пользователь c id=%s не найден", id));
+        }
+        users.remove(id);
+    }
 }
