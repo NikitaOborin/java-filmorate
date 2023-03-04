@@ -10,8 +10,8 @@ import java.util.Map;
 
 @Component
 public class InMemoryUserStorage implements UserStorage {
-    private final Map<Integer, User> users = new HashMap<>();
-    private int generatorId;
+    private final Map<Long, User> users = new HashMap<>();
+    private long generatorId;
 
     @Override
     public void create(User user) {
@@ -34,7 +34,7 @@ public class InMemoryUserStorage implements UserStorage {
     }
 
     @Override
-    public User getById(int id) {
+    public User getById(long id) {
         if (!users.containsKey(id)) {
             throw new NotFoundException(String.format("Пользователь c id=%s не найден", id));
         }
@@ -42,7 +42,7 @@ public class InMemoryUserStorage implements UserStorage {
     }
 
     @Override
-    public void deleteById(int id) {
+    public void deleteById(long id) {
         if (!users.containsKey(id)) {
             throw new NotFoundException(String.format("Пользователь c id=%s не найден", id));
         }

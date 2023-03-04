@@ -2,11 +2,11 @@ package ru.yandex.practicum.filmorate.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.exeptions.ValidationException;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.user.UserStorage;
-import ru.yandex.practicum.filmorate.validator.UserValidator;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,18 +15,16 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Slf4j
 public class UserService {
+    @Autowired
     private final UserStorage userStorage;
-    private final UserValidator userValidator;
 
     public User createUser(User user) {
-        userValidator.validateUser(user);
         userStorage.create(user);
         log.debug("Пользователь {} успешно добавлен", user.getName());
         return user;
     }
 
     public User updateUser(User user) {
-        userValidator.validateUser(user);
         userStorage.update(user);
         log.debug("Пользователь {} успешно обновлен", user.getName());
         return user;
@@ -38,13 +36,13 @@ public class UserService {
         return users;
     }
 
-    public User getById(int id) {
+    public User getById(long id) {
         User user = userStorage.getById(id);
         log.debug("Пользователь с id={} успешно получен", id);
         return user;
     }
 
-    public void addFriendship(int userId, int friendId) {
+    public void addFriendship(long userId, long friendId) {
         if (userId == friendId) {
             throw new ValidationException("Пользователь не может добавить в друзья сам себя");
         }
@@ -54,7 +52,7 @@ public class UserService {
         newFriend.getFriends().add(userId);
     }
 
-    public void deleteFriendship(int userId, int friendId) {
+    public void deleteFriendship(long userId, long friendId) {
         User user = userStorage.getById(userId);
         User newFriend = userStorage.getById(friendId);
 

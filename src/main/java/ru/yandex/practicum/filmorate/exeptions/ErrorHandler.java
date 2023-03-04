@@ -27,8 +27,8 @@ public class ErrorHandler {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public Map<String, String> handlerThrowable(final Throwable e) {
+    public Map<String, String> handlerThrowable(final Exception e) {
         log.warn("error 500 {}", e.getMessage());
-        return Map.of("500 Throwable error", e.getMessage());
+        return Map.of("500 Exception error", e.getMessage());
     }
 }

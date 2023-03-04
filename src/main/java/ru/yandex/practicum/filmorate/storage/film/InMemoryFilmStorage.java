@@ -12,8 +12,8 @@ import java.util.stream.Collectors;
 
 @Component
 public class InMemoryFilmStorage implements FilmStorage {
-    private final Map<Integer, Film> films = new HashMap<>();
-    private int generatorId;
+    private final Map<Long, Film> films = new HashMap<>();
+    private long generatorId;
 
     @Override
     public void create(Film film) {
@@ -36,7 +36,7 @@ public class InMemoryFilmStorage implements FilmStorage {
     }
 
     @Override
-    public Film getById(int id) {
+    public Film getById(long id) {
         if (!films.containsKey(id)) {
             throw new NotFoundException(String.format("Фильм c id=%s не найден", id));
         }
@@ -44,7 +44,7 @@ public class InMemoryFilmStorage implements FilmStorage {
     }
 
     @Override
-    public void deleteById(int id) {
+    public void deleteById(long id) {
         if (!films.containsKey(id)) {
             throw new NotFoundException(String.format("Фильм c id=%s не найден", id));
         }
