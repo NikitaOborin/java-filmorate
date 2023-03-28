@@ -5,7 +5,7 @@ Template repository for Filmorate project.
 ## **ER-диаграмма**
 
 Данная диаграмма отражает связи таблиц, которые используются для хранения данных приложения `Filmorate`.
-![ER диаграмма промежуточное ТЗ11](https://user-images.githubusercontent.com/114754182/228310103-4708e6ad-20d0-4231-aaf5-4d192e38ebeb.png)
+![ER диаграмма промежуточное ТЗ11](https://user-images.githubusercontent.com/114754182/228310808-7d71dcac-0446-4f2f-ba54-763662b0af1d.png)
 
 ## **Примеры SQL-запросов**
 
