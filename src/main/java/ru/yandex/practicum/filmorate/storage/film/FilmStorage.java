@@ -6,15 +6,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface FilmStorage {
-    void create(Film film);
+    Film create(Film film);
 
-    void update(Film film);
+    Film update(Film film);
 
-    ArrayList<Film> getAll();
+    List<Film> getAll();
 
-    Film getById(long id);
+    Film getById(int id);
 
-    void deleteById(long id);
+    Film deleteById(int id);
 
     List<Film> getBestFilms(int count);
+
+    void addLike(int id, int userId);
+
+    void removeLike(int filmId, int userId);
 }

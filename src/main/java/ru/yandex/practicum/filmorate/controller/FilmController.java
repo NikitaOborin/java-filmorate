@@ -29,6 +29,11 @@ public class FilmController {
         return filmService.updateFilm(film);
     }
 
+    @DeleteMapping
+    public Film deleteFilm(@PathVariable int id) {
+        return filmService.deleteById(id);
+    }
+
     @GetMapping
     public List<Film> getFilms() {
         return filmService.getFilms();
@@ -52,5 +57,10 @@ public class FilmController {
     @GetMapping("/{id}")
     public Film getById(@PathVariable int id) {
         return filmService.getById(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public Film deleteById(@PathVariable int id) {
+        return filmService.deleteById(id);
     }
 }

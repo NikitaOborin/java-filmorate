@@ -4,15 +4,27 @@ import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.User;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 public interface UserStorage {
-    void create(User user);
+    User create(User user);
 
-    void update(User user);
+    Optional<User> update(User user);
 
-    ArrayList<User> getAll();
+    List<User> getAll();
 
-    User getById(long id);
+    User getById(int id);
 
-    void deleteById(long id);
+    User deleteById(int id);
+
+    boolean addFriend(int id, int friendId);
+
+    boolean askFriend(int id, int friendId);
+
+    boolean deleteFriend(int id, int friendId);
+
+    List<User> findFriends(int id);
+
+    List<User> findCommonFriends(int id1, int id2);
 }
