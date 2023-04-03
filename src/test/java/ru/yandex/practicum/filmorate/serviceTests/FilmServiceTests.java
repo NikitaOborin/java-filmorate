@@ -36,14 +36,14 @@ class FilmServiceTests {
     @Test
     public void addAndGetFilmTest() {
         filmService.addFilm(film);
-        assertEquals (film, filmService.getById(film.getId()));
+        assertEquals(film, filmService.getById(film.getId()));
     }
 
     @Test
     public void findAllFilmsTest() {
         filmService.addFilm(film);
         List <Film> allFilms = filmService.getFilms();
-        assertEquals (1, allFilms.size());
+        assertEquals(1, allFilms.size());
     }
 
     @Test
@@ -52,7 +52,7 @@ class FilmServiceTests {
         film.setMpa(new Mpa(3, "PG-13"));
         filmService.updateFilm(film);
         Film f = filmService.getById(film.getId());
-        assertEquals ("PG-13", f.getMpa().getName());
+        assertEquals("PG-13", f.getMpa().getName());
     }
 
     @Test
