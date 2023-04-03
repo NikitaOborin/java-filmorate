@@ -64,7 +64,7 @@ public class UserServiceTests {
         userService.createUser(testUser3);
         userService.addFriendship(1, 3);
         userService.addFriendship(2, 3);
-        List <User> listCommonFriends = userService.getMutualFriendship(1, 2);
+        List<User> listCommonFriends = userService.getMutualFriendship(1, 2);
         assertEquals(1,  listCommonFriends.size());
         assertTrue(listCommonFriends.contains(testUser3));
     }
