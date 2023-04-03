@@ -168,7 +168,7 @@ public class FilmDbStorage implements FilmStorage, DbStorageMixin {
     public List<Film> getBestFilms(int count) {
         final String sqlQuery =
                 "SELECT f.*, mpa.mpa_name mpa_name FROM films f " +
-                        "join mpa on f.mpa_id = mpa.mpa_id "+
+                        "join mpa on f.mpa_id = mpa.mpa_id " +
                         "LEFT JOIN films_likes fl ON f.id = fl.film_id " +
                         "GROUP BY f.id " +
                         "ORDER BY COUNT(fl.user_id) DESC " +
