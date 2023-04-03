@@ -13,6 +13,6 @@ public class Mpa {
     private final int id;
     private String name;
 
-    public void setId(int mpa_id) {
+    public void setId(int mpaId) {
     }
 }
