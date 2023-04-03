@@ -1,17 +1,14 @@
 package ru.yandex.practicum.filmorate.service;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.exeptions.NotFoundException;
-import ru.yandex.practicum.filmorate.exeptions.ValidationException;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.user.UserStorage;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -30,7 +27,11 @@ public class UserService {
         return user;
     }
 
-    public User updateUser(User user) {
+    public User updateUser(User user) {   //!!!!!!!!!!!!!!!!!
+        int id = user.getId();
+        if (userStorage.getById(id) == null) {
+            throw new NotFoundException("User с id=" + id + " не найден");
+        }
         userStorage.update(user);
         log.debug("Пользователь {} успешно обновлен", user.getName());
         return user;

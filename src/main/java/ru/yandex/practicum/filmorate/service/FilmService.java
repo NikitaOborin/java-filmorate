@@ -1,6 +1,5 @@
 package ru.yandex.practicum.filmorate.service;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -65,7 +64,12 @@ public class FilmService {
 
     public void deleteLike(int filmId, int userId) {
         Film film = filmStorage.getById(filmId);
-        if (film.getLikes().contains(userId)) {
+        User user = userStorage.getById(userId);
+        if (!userStorage.getAll().contains(user)) {
+            throw new NotFoundException(String.format("User с id=" + userId + " не найден"));
+        }
+
+        if (film.getLikes() == null || film.getLikes().contains(userId)) {
             filmStorage.removeLike(filmId, userId);
             filmStorage.update(film);
         } else {

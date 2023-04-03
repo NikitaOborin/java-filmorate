@@ -33,13 +33,13 @@ import static ru.yandex.practicum.filmorate.Util.emptyIfNull;
 @Primary
 public class FilmDbStorage implements FilmStorage, DbStorageMixin {
     private final JdbcTemplate jdbcTemplate;
-    @Autowired
-    GenreService genreService;
 
-    @Override
     public JdbcTemplate getJdbcTemplate() {
         return jdbcTemplate;
     }
+
+    @Autowired
+    GenreService genreService;
     static Map<Integer, List<Genre>> filmGenres;
 
     void updateMap() {
