@@ -42,7 +42,7 @@ class FilmServiceTests {
     @Test
     public void findAllFilmsTest() {
         filmService.addFilm(film);
-        List <Film> allFilms = filmService.getFilms();
+        List<Film> allFilms = filmService.getFilms();
         assertEquals(1, allFilms.size());
     }
 
