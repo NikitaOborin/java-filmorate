@@ -2,7 +2,6 @@ package ru.yandex.practicum.filmorate.storage.film;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -38,22 +37,22 @@ public class FilmDbStorage implements FilmStorage, DbStorageMixin {
         return jdbcTemplate;
     }
 
-    @Autowired
-    GenreService genreService;
-    static Map<Integer, List<Genre>> filmGenres;
 
-    void updateMap() {
+
+    private final GenreService genreService; // удалить !!
+
+    static Map<Integer, List<Genre>> filmGenres; // удалить !!
+
+    void updateMap() { // удалить !!
         filmGenres = genreService.getFilmGenres();
     }
 
+
+
     @Override
     public List<Film> getAll() {
-        final String sqlQuery = "select films.*, " +
-                "mpa.mpa_name mpa_name " +
-                "from films join mpa on films.mpa_id = mpa.mpa_id";
-
+        final String sqlQuery = "select * from FILMS f, MPA m where f.MPA_ID = m.MPA_ID";
         List<Film> films = new ArrayList<>(jdbcTemplate.query(sqlQuery, this::makeFilm));
-
         for (Film film : films) {
             film.setGenres(filmGenres.getOrDefault(film.getId(), new ArrayList<>()));
         }
